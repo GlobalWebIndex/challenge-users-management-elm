@@ -156,4 +156,4 @@ Returns a `200 OK` with example payload:
 }
 ```
 
-Good luck potential colleague. See you on your PR's code review.
+Good luck potential colleague! See you on your PR's code review!
