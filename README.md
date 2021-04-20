@@ -66,7 +66,7 @@ With example payload:
 {
   "user": {
     "first_name": "John",
-    "last_name": "Doe"
+    "last_name": "Doe",
     "elm_skill": 2
   }
 }
@@ -79,7 +79,7 @@ Returns either a `201 Created` with:
   "user": {
     "id": 1,
     "first_name": "John",
-    "last_name": "Doe"
+    "last_name": "Doe",
     "elm_skill": 2
   }
 }
@@ -109,7 +109,7 @@ With example payload:
 {
   "user": {
     "first_name": "John",
-    "last_name": "Doe"
+    "last_name": "Doe",
     "elm_skill": 2
   }
 }
@@ -122,7 +122,7 @@ Returns either a `200 OK` with:
   "user": {
     "id": 1,
     "first_name": "John",
-    "last_name": "Doe"
+    "last_name": "Doe",
     "elm_skill": 2
   }
 }
