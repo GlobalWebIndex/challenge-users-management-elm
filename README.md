@@ -22,6 +22,13 @@ Your task is to write a CRUD application for a `users` API with the following re
 * The app should be ideally OS agnostic.
 * Provide production-grade build pipeline.
 
+## Workflow
+
+1. Fork this repository.
+2. Create a branch for your implementation.
+3. When you're done, create a PR to this repo's master branch.
+4. We'll be with You shortly.
+
 ## The API spec
 
 The users API is a REST JSON API, the specification of which you can find below. Your solution will be manually tested on our implementation of this API. For the purposes of development, feel free to mock it away.
