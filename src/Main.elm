@@ -2,11 +2,10 @@ module Main exposing (..)
 
 import Api exposing (..)
 import Browser
+import Dict
 import Html.Styled exposing (toUnstyled)
 import Model exposing (..)
-import RemoteData exposing (fromResult)
-import Result
-import Task
+import RemoteData exposing (RemoteData(..), fromResult)
 import View exposing (viewStyled)
 
 
@@ -26,5 +25,47 @@ update msg model =
         GetUsersResponse result ->
             ( { model | users = fromResult result }, Cmd.none )
 
-        GetUserResponse result ->
-            ( model, Cmd.none )
+        UpsertUserResponse result ->
+            case ( result, model.users ) of
+                ( Ok ( id, user ), Success theUsers ) ->
+                    ( { model | users = Success (theUsers |> Dict.insert id user), underEdit = NotEditing }, Cmd.none )
+
+                ( Err errs, _ ) ->
+                    ( { model | errors = errs :: model.errors }, Cmd.none )
+
+                _ ->
+                    ( model, fetchUsers )
+
+        DeleteUserResponse result ->
+            case ( result, model.users ) of
+                ( Ok ( id, _ ), Success theUsers ) ->
+                    ( { model | users = Success (theUsers |> Dict.remove id), underEdit = NotEditing }, Cmd.none )
+
+                ( Err errs, _ ) ->
+                    ( { model | errors = errs :: model.errors }, Cmd.none )
+
+                _ ->
+                    ( model, fetchUsers )
+
+        Edit underEdit ->
+            ( { model | underEdit = underEdit }, Cmd.none )
+
+        PostUser user ->
+            ( model, createUser user )
+
+        PutUser id user ->
+            ( model, updateUser ( id, user ) )
+
+        IntendDeleteUser confirmingDelete ->
+            ( { model | confirmingDelete = confirmingDelete }, Cmd.none )
+
+        DeleteUser id ->
+            ( { model | confirmingDelete = Nothing }, deleteUser id )
+
+        DismissLastError ->
+            case model.errors of
+                [] ->
+                    ( model, Cmd.none )
+
+                _ :: errors ->
+                    ( { model | errors = errors }, Cmd.none )

@@ -6,12 +6,19 @@ import RemoteData exposing (RemoteData(..))
 
 type alias Model =
     { users : RemoteData (List String) (Dict Int User)
+    , underEdit : UnderEdit
+    , errors : List (List String)
+    , confirmingDelete : Maybe ( Int, User )
     }
 
 
 initModel : Model
 initModel =
-    { users = NotAsked }
+    { users = NotAsked
+    , underEdit = NotEditing
+    , errors = []
+    , confirmingDelete = Nothing
+    }
 
 
 type alias User =
@@ -21,6 +28,27 @@ type alias User =
     }
 
 
+initUser : User
+initUser =
+    { firstName = ""
+    , lastName = ""
+    , elmSkill = 3
+    }
+
+
+type UnderEdit
+    = NewUser User
+    | Id Int User
+    | NotEditing
+
+
 type Msg
     = GetUsersResponse (Result (List String) (Dict Int User))
-    | GetUserResponse (Result (List String) User)
+    | UpsertUserResponse (Result (List String) ( Int, User ))
+    | DeleteUserResponse (Result (List String) ( Int, User ))
+    | Edit UnderEdit
+    | PostUser User
+    | PutUser Int User
+    | IntendDeleteUser (Maybe ( Int, User ))
+    | DeleteUser Int
+    | DismissLastError

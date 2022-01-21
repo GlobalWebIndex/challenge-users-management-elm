@@ -4,18 +4,24 @@ import Json.Encode exposing (..)
 import Model exposing (..)
 
 
-userFields : User -> List (String, Value)
-userFields u =
-    [ ( "first_name", string u.firstName )
-    , ( "last_name", string u.lastName )
-    , ( "elm_skill", int u.elmSkill )
+userFields : User -> List ( String, Value )
+userFields { firstName, lastName, elmSkill } =
+    [ ( "first_name", string firstName )
+    , ( "last_name", string lastName )
+    , ( "elm_skill", int elmSkill )
     ]
 
+
 user : User -> Value
-user u =
-    object (userFields u)
+user =
+    object << userFields
 
 
-userWithId : (Int, User) -> Value
-userWithId (id, u) =
-    object (("id", int id) :: userFields u)
+userId : Int -> Value
+userId =
+    int
+
+
+userWithId : ( Int, User ) -> Value
+userWithId ( id, u ) =
+    object (( "id", int id ) :: userFields u)

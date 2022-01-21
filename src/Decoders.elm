@@ -18,6 +18,11 @@ user =
     field "user" rawUser
 
 
+userResponse : Decoder ( Int, User )
+userResponse =
+    field "user" userWithId
+
+
 userWithId : Decoder ( Int, User )
 userWithId =
     field "id" int
@@ -29,7 +34,7 @@ users =
     field "users" (list userWithId |> map Dict.fromList)
 
 
-errors : Decoder (List String)
-errors =
+userUpsertErrors : Decoder (List String)
+userUpsertErrors =
     at [ "errors", "user" ] (dict (list string))
         |> map (Dict.values >> List.concat)
