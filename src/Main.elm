@@ -5,7 +5,7 @@ import Browser
 import Dict
 import Html.Styled exposing (toUnstyled)
 import Model exposing (..)
-import RemoteData exposing (RemoteData(..), fromResult)
+import RemoteData exposing (RemoteData(..))
 import View exposing (viewStyled)
 
 
@@ -23,7 +23,7 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         GetUsersResponse result ->
-            ( { model | users = fromResult result }, Cmd.none )
+            ( { model | users = RemoteData.fromResult result }, Cmd.none )
 
         UpsertUserResponse result ->
             case ( result, model.users ) of
