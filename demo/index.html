@@ -1,0 +1,9 @@
+<body>
+    <div id="content"></div>
+    <script src="elm.min.js"></script>
+    <script>
+        const myDiv = document.getElementById("content");
+        const app = Elm.Main.init({ node: myDiv });
+        app.ports.gaSend.subscribe(data => ga('send', 'event', ...data));
+    </script>
+</body>
