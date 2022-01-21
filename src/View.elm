@@ -156,8 +156,20 @@ modalFooter extraAttrs elems =
 inputs : User -> (User -> Msg) -> List (Html Msg)
 inputs ({ firstName, lastName, elmSkill } as user) toMsg =
     [ div []
-        [ input [ css [ width (px 72) ], value firstName, placeholder "first name", onInput (\new -> { user | firstName = new } |> toMsg) ] []
-        , input [ css [ width (px 72) ], value lastName, placeholder "last name", onInput (\new -> { user | lastName = new } |> toMsg) ] []
+        [ input
+            [ css [ width (px 72) ]
+            , value firstName
+            , placeholder "first name"
+            , onInput (\new -> { user | firstName = new } |> toMsg)
+            ]
+            []
+        , input
+            [ css [ width (px 72) ]
+            , value lastName
+            , placeholder "last name"
+            , onInput (\new -> { user | lastName = new } |> toMsg)
+            ]
+            []
         ]
     , div []
         [ span [] [ text "Elm skill: " ]
