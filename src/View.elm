@@ -86,7 +86,7 @@ viewFooter { confirmingDelete, errors, underEdit } =
                 , button [ onClick (IntendDeleteUser (Just ( id, user ))) ] [ text "delete" ]
                 ]
 
-        _ ->
+        (Nothing, [],  NotEditing)->
             footer [] []
 
 
